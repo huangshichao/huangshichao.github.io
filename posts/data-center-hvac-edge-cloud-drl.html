@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>数据中心 HVAC 边缘—云协同深度强化学习多目标优化 · Shichao Huang</title>
+<meta name="description" content="Sensors 2026 开放获取论文：面向数据中心 HVAC 的边缘—云协同物理信息强化学习框架。">
+<meta name="author" content="Shichao Huang, Yibing Zhou, Yuan Liu">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap wrap--wide">
+    <a class="brand" href="../index.html">Shichao Huang</a>
+    <nav class="site-nav">
+      <a href="../index.html">主页</a>
+      <a href="../index.html#papers">论文</a>
+      <a href="https://github.com/huangshichao" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<article class="article-body">
+<div class="wrap">
+
+  <div class="breadcrumb" style="padding-top:44px;"><a href="../index.html">主页</a> / 论文</div>
+
+  <h1 style="font-size:27px;line-height:1.4;margin:6px 0 12px;letter-spacing:-0.02em;">面向数据中心 HVAC 的边缘—云协同深度强化学习多目标优化</h1>
+  <p style="font-size:15px;color:var(--fg-soft);font-style:italic;line-height:1.6;margin:0 0 20px;padding-left:14px;border-left:3px solid var(--line-strong);">
+    Multi-Objective Optimization for Data Center HVAC Systems Based on Edge–Cloud Collaborative Deep Reinforcement Learning
+  </p>
+
+  <div class="meta-line" style="margin-bottom:26px;">
+    <b>作者</b>　Shichao Huang，Yibing Zhou，Yuan Liu<br>
+    <b>单位</b>　School of Electronic and Information Engineering, South China University of Technology<br>
+    <b>出处</b>　<i>Sensors</i>（MDPI），2026<br>
+    <b>授权</b>　开放获取，Creative Commons Attribution（CC BY 4.0）
+  </div>
+
+  <h2>要解决的问题</h2>
+  <p>数据中心制冷系统通常占全站用电的 30%–45%。控制必须放在边缘执行——秒级的响应需求、7 ℃ 以下冷冻水供水温度导致的结露风险、海量传感器数据的上行带宽压力，以及断网期间的自主运行要求，都让云端闭环不可行。但把深度强化学习（DRL）直接部署到生产 HVAC 系统有三个绕不开的障碍：<b>冷启动风险</b>（初始策略近乎随机，容易引发温度剧烈波动甚至热安全事故）、<b>跨时间尺度的优化冲突</b>（分钟级实时控制、日级储能调度与硬性安全约束耦合在一起），以及<b>边缘与云端算力的不对称</b>。已有的预训练与安全强化学习路线又普遍依赖精确的先验模型或预先采集的数据集，且缺少在线再校准，无法跟踪设备性能退化。</p>
+
+  <h2>我做的工作</h2>
+  <ol class="contrib">
+    <li><b>提出边缘—云协同的物理信息强化学习框架</b>，把离线预训练、在线边缘推理与云端日前优化串成一条闭环，运行数据从边缘回流以支撑周期性模型再校准。</li>
+    <li><b>用物理信息冷启动解决冷启动风险。</b>构建 13 参数灰箱数字孪生（保留物理因果结构、把聚合系数作为可辨识参数），用自适应粒子群优化（APSO）在孪生上搜索最优设定点，生成受物理约束的初始策略，再用监督学习预训练策略网络——<b>全程不需要专家示范数据，也不需要精确的先验模型</b>。</li>
+    <li><b>设计三时间尺度的协同架构。</b>分钟级在边缘执行 Soft Actor-Critic（SAC）实时推理；每周在边缘用 APSO 依据实测数据在线辨识设备参数；每日在云端以 NSGA-III 做 24 小时蓄冷调度，从 Pareto 前沿取拐点解下发边缘，实现谷电蓄冷、峰电释冷。当模型漂移超过阈值时，触发策略在更新后的孪生上选择性再预训练。</li>
+    <li><b>把热安全硬约束嵌进网络结构。</b>设计了约束感知的 Sigmoid 安全投影层，对策略原始输出做有界、平滑、单调的映射，从构造上排除越界动作，而不是依赖奖励惩罚去“劝阻”。同时为边缘网关做了 INT8 训练后量化与 ONNX Runtime + ARM NEON 加速。</li>
+    <li><b>完成并评估了一次七个月的生产部署。</b>覆盖从夏末到冬季的完整季节过渡，约 320 万条传感器记录、127 路传感器流，并用 Bootstrap 置信区间、Wilcoxon 符号秩检验、Bonferroni 校正与 Newey–West 标准误做统计评估；同时用七组消融配置量化每个模块的独立贡献。</li>
+  </ol>
+
+  <h2>关键结果</h2>
+  <div class="facts">
+    <div><div class="n">17.8%</div><div class="t">制冷成本下降<br>95% CI [16.1%, 19.5%]</div></div>
+    <div><div class="n">4.58</div><div class="t">夏季系统 COP<br>基线 3.62，提升 26.5%</div></div>
+    <div><div class="n">85 ms</div><div class="t">边缘 INT8 推理时延<br>云端部署为 1220 ms</div></div>
+    <div><div class="n">0</div><div class="t">热违规事件<br>七个月共 210 天</div></div>
+  </div>
+  <p style="font-size:14.5px;color:var(--fg-soft);">17.8% 的降幅可拆为两部分：AI 实时能效优化贡献 10.8 个百分点，蓄冷分时调度贡献 7.0 个百分点。消融实验显示，去掉 NSGA-III 蓄冷调度造成的退化最大（−7.0 pp），其次是三尺度协同（−3.5 pp）与边缘部署（−2.9 pp）；去掉安全投影层的经济代价最小（−0.7 pp），但会带来 3 次热违规（完整系统为 0）。剔除天气与电价等外部因素后，纯由 DRL 驱动的优化增益仍为 11.5%。</p>
+
+  <h2>引用</h2>
+  <div class="cite">Huang, S.; Zhou, Y.; Liu, Y. Multi-Objective Optimization for Data Center HVAC Systems Based on Edge–Cloud Collaborative Deep Reinforcement Learning. <i>Sensors</i> (MDPI), 2026.</div>
+
+
+</div>
+</article>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap wrap--wide">
+    <div>© 2026 Shichao Huang</div>
+    <div><a href="../index.html">返回主页</a></div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shichao Huang</title>
+<meta name="description" content="Shichao Huang — South China University of Technology. 数据中心节能与强化学习、电力行业网络安全、远程浏览器隔离、矢量图形渲染与信创适配。">
+<meta name="author" content="Shichao Huang">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap wrap--wide">
+    <a class="brand" href="index.html">Shichao Huang</a>
+    <nav class="site-nav">
+      <a href="index.html#papers">论文</a>
+      <a href="index.html#research">方向</a>
+      <a href="index.html#contact">联系</a>
+      <a href="https://github.com/huangshichao" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<section class="hero">
+  <div class="wrap">
+    <h1>Shichao Huang</h1>
+    <div class="en">South China University of Technology</div>
+
+    <p class="lede">研究方向：数据中心的制冷控制与强化学习，以及电力行业信息系统的安全隔离与国产化适配。</p>
+
+    <div class="tagrow">
+      <span class="tag">数据中心节能</span>
+      <span class="tag">深度强化学习</span>
+      <span class="tag">边缘—云协同</span>
+      <span class="tag">远程浏览器隔离</span>
+      <span class="tag">矢量图形渲染</span>
+      <span class="tag">信创适配</span>
+    </div>
+
+    <div class="links">
+      <a class="btn btn--primary" href="posts/data-center-hvac-edge-cloud-drl.html">查看论文</a>
+      <a class="btn" href="https://github.com/huangshichao" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn" href="mailto:eehuangshichao@mail.scut.edu.cn">eehuangshichao@mail.scut.edu.cn</a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="papers">
+  <div class="wrap">
+    <h2>论文</h2>
+    <div class="card-list">
+
+      <a class="card" href="posts/data-center-hvac-edge-cloud-drl.html">
+        <div class="meta">
+          <span><i>Sensors</i> (MDPI) · 2026</span>
+          <span>·</span>
+          <span>开放获取 CC BY 4.0</span>
+        </div>
+        <h3>面向数据中心 HVAC 的边缘—云协同深度强化学习多目标优化</h3>
+        <p>
+          用 APSO 在灰箱数字孪生上生成受物理约束的初始策略，绕开 DRL 冷启动；以三时间尺度架构协调
+          分钟级边缘 SAC 推理、每周模型辨识与每日云端 NSGA-III 蓄冷调度；安全投影层把热安全硬约束
+          嵌入策略网络。七个月生产部署、约 320 万条传感器记录，制冷成本下降 17.8%，零热违规。
+        </p>
+      </a>
+
+      <a class="card" href="posts/secure-browser-based-on-vector-graphics-rendering.html">
+        <div class="meta">
+          <span>CICED 2026 · IEEE 出版</span>
+        </div>
+        <h3>基于矢量图形渲染的安全浏览器设计与实践</h3>
+        <p>
+          把浏览器运行在服务端沙箱，渲染结果重写为 Display / Picture / Video 三类矢量指令流，
+          加密下发至只做光栅化的瘦客户端。线路数据量较像素流下降约一个数量级，平均端到端时延
+          107–116 ms，覆盖龙芯、兆芯、飞腾等四类国产化平台，兼容性测试 HTML5 577/588。
+        </p>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<section class="section" id="research">
+  <div class="wrap">
+    <h2>方向</h2>
+
+    <div class="card-list">
+      <div class="card" style="cursor:default;">
+        <h3 style="font-size:17px;">数据中心制冷系统的智能控制</h3>
+        <p>在保证热安全硬约束的前提下，用强化学习与多目标优化降低制冷能耗与电费。关注冷启动风险、跨时间尺度的优化冲突，以及模型随设备退化而失准的问题。</p>
+      </div>
+
+      <div class="card" style="cursor:default;">
+        <h3 style="font-size:17px;">远程浏览器隔离（RBI）</h3>
+        <p>在本地沙箱、视频流隔离、DOM 重建三条既有路线之外，探索兼顾性能、兼容性与零日攻击遏制能力的第四种形态：服务端渲染 + 矢量指令流下发。</p>
+      </div>
+
+      <div class="card" style="cursor:default;">
+        <h3 style="font-size:17px;">矢量图形渲染与传输优化</h3>
+        <p>将 Blink 绘制命令重写为平台无关的矢量指令集，配合控制/数据双通道、SACK-UDP 重传与自适应拥塞控制，在 50–150 ms 高抖动网络上保持可交互体验。</p>
+      </div>
+
+      <div class="card" style="cursor:default;">
+        <h3 style="font-size:17px;">关键行业系统的信创适配</h3>
+        <p>面向 mips64 / loongarch64 / aarch64 / x86_64 四类指令集与国产操作系统，验证 GPU 加速与 CPU 软件渲染两条路径的一致性与优雅降级能力。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="contact">
+  <div class="wrap">
+    <h2>联系</h2>
+    <div class="table-wrap" style="margin-top:0;">
+      <table style="min-width:0;">
+        <tbody>
+          <tr><td style="width:130px;color:var(--fg-mute);">单位</td><td>华南理工大学电子与信息学院</td></tr>
+          <tr><td style="color:var(--fg-mute);">邮箱</td><td><a href="mailto:eehuangshichao@mail.scut.edu.cn">eehuangshichao@mail.scut.edu.cn</a></td></tr>
+          <tr><td style="color:var(--fg-mute);">GitHub</td><td><a href="https://github.com/huangshichao" target="_blank" rel="noopener">github.com/huangshichao</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap wrap--wide">
+    <div>© 2026 Shichao Huang</div>
+    <div>本站由 GitHub Pages 托管</div>
+  </div>
+</footer>
+
+</body>
+</html>
